@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strings"
 
-	packr "github.com/gobuffalo/packr/v2"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"s32x.com/ipdata/ipdata"
@@ -33,8 +32,7 @@ func Start(port, env string) {
 		e.Pre(middleware.HTTPSNonWWWRedirect())
 
 		// Serve the static web content
-		wb := packr.New("web box", "./web")
-		e.GET("*", echo.WrapHandler(http.FileServer(wb)))
+		e.Static("*", "./web")
 	}
 
 	// Bind all API endpoint handlers
